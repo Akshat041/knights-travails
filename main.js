@@ -1,13 +1,3 @@
-const board = [];
-
-for (let i = 0; i < 8; i++) {
-  for (let j = 0; j < 8; j++) {
-    board.push([i, j]);
-  }
-}
-
-// console.table(board);
-
 function knightMoves(src, dest) {
   if (src[0] > 7 || src[1] > 7 || dest[0] > 7 || dest[1] > 7) {
     console.log("Invalid index!");
