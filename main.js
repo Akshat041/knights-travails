@@ -1,4 +1,6 @@
 function knightMoves(src, dest) {
+  const sqr = [0, 0];
+
   if (src[0] > 7 || src[1] > 7 || dest[0] > 7 || dest[1] > 7) {
     console.log("Invalid index!");
   }
@@ -28,4 +30,37 @@ function knightMoves(src, dest) {
   }
 }
 
-knightMoves([3, 3], [1, 2]);
+function explorePossiblePositions(coordinate) {
+  const possiblePositions = [];
+  const correctPos = [];
+  possiblePositions.push(
+    [coordinate[0] + 2, coordinate[1] - 1],
+    [coordinate[0] + 2, coordinate[1] + 1],
+    [coordinate[0] - 1, coordinate[1] + 2],
+    [coordinate[0] + 1, coordinate[1] + 2],
+    [coordinate[0] - 2, coordinate[1] - 1],
+    [coordinate[0] - 2, coordinate[1] + 1],
+    [coordinate[0] - 1, coordinate[1] - 2],
+    [coordinate[0] + 1, coordinate[1] - 2],
+  );
+
+  console.log(possiblePositions);
+
+  checkValidCoordinate(
+    possiblePositions.map((pos) => {
+      if (checkValidCoordinate(pos) === 1) {
+        correctPos.push(pos);
+      }
+    }),
+  );
+}
+
+function checkValidCoordinate(co) {
+  if (co[0] < 0 || co[0] > 7 || co[1] < 0 || co[1] > 7) {
+    // console.log(`${co} is invalid coordinate. Continue to find others.`);
+    return 0;
+  } else return 1;
+}
+
+// knightMoves([3, 3], [1, 2]);
+explorePossiblePositions([3, 7]);
