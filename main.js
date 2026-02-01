@@ -1,24 +1,38 @@
-const queue = [];
-const visited = [];
-const res = "Your path => ";
+function knightMoves(start, end) {
+  const queue = [];
+  const visited = [];
+  const parent = [];
 
-function knightMoves(src, dest) {
-  if (src === dest) {
-    return;
-  }
+  parent[start] = null;
+  queue.push(start);
+  visited.push(start);
 
-  possiblePositions = explorePossiblePositions(src);
-  queue.push(possiblePositions);
+  while (queue.length !== 0) {
+    const node = queue.shift();
 
-  visited.push(src);
-
-  for (let i = 0; i < queue.length; i++) {
-    if (queue[i] === dest) {
-      console.log(res + `${dest}`);
-    } else {
-      visited.push(queue.shift());
-      return knightMoves(queue.shift(), dest);
+    if (node[0] === end[0] && node[1] === end[1]) {
+      break;
     }
+
+    possiblePositions = explorePossiblePositions(node);
+
+    possiblePositions.forEach((neighbour) => {
+      if (!visited.includes(neighbour)) {
+        visited.push(neighbour);
+        parent[neighbour] = node;
+        queue.push(neighbour);
+      }
+    });
+    console.log(visited);
+
+    let path = [];
+    let curr = end;
+    while (curr !== null) {
+      path.push(curr);
+      curr = parent[curr];
+    }
+
+    return path.reverse();
   }
 }
 
@@ -43,4 +57,5 @@ function explorePossiblePositions(coordinate) {
   return possiblePositions;
 }
 
-knightMoves([1, 2], [5, 5]);
+console.log(knightMoves([0, 0], [3, 3]));
+// console.log(explorePossiblePositions([3, 3]));
