@@ -1,5 +1,7 @@
 function knightMoves(start, end) {
   const queue = [];
+
+  // visited = {node: its_parent_node}
   const visited = new Map();
 
   visited.set(start, null);
