@@ -1,38 +1,30 @@
 function knightMoves(start, end) {
   const queue = [];
-  const visited = [];
-  const parent = [];
+  const visited = new Map();
 
-  parent[start] = null;
+  visited.set(start, null);
   queue.push(start);
-  visited.push(start);
 
   while (queue.length !== 0) {
-    const node = queue.shift();
+    let curr = queue.shift();
 
-    if (node[0] === end[0] && node[1] === end[1]) {
-      break;
+    if (curr[0] === end[0] && curr[1] === end[1]) {
+      const path = [];
+      while (curr !== null) {
+        path.push(curr);
+        curr = visited.get(curr);
+      }
+      return path.reverse();
     }
 
-    possiblePositions = explorePossiblePositions(node);
+    possiblePositions = explorePossiblePositions(curr);
 
     possiblePositions.forEach((neighbour) => {
-      if (!visited.includes(neighbour)) {
-        visited.push(neighbour);
-        parent[neighbour] = node;
+      if (!visited.has(neighbour)) {
+        visited.set(neighbour, curr);
         queue.push(neighbour);
       }
     });
-    console.log(visited);
-
-    let path = [];
-    let curr = end;
-    while (curr !== null) {
-      path.push(curr);
-      curr = parent[curr];
-    }
-
-    return path.reverse();
   }
 }
 
@@ -57,5 +49,5 @@ function explorePossiblePositions(coordinate) {
   return possiblePositions;
 }
 
-console.log(knightMoves([0, 0], [3, 3]));
+console.log(knightMoves([0, 0], [7, 7]));
 // console.log(explorePossiblePositions([3, 3]));
