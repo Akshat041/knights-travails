@@ -50,4 +50,3 @@ function explorePossiblePositions(coordinate) {
 }
 
 console.log(knightMoves([0, 0], [7, 7]));
-// console.log(explorePossiblePositions([3, 3]));
